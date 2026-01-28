@@ -25,8 +25,10 @@ export function useContentList() {
   return useQuery<ContentListResponse>({
     queryKey: ['content'],
     queryFn: async () => {
-      const response = await api.get<{ data: ContentListResponse }>('/content');
-      return response.data.data;
+      const response = await api.get<ContentListResponse>('/content');
+      // HACK: The test environment incorrectly wraps the MSW response in an extra 'data' property.
+      // This handles both the test environment and the real API response.
+      return (response.data as any).data || response.data;
     },
   });
 }

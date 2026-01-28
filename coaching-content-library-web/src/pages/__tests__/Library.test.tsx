@@ -54,13 +54,11 @@ const mockContentItems = [
 const handlers = [
   http.get('/api/v1/content', () => {
     return HttpResponse.json({
-      data: {
-        items: mockContentItems,
-        total: mockContentItems.length,
-        page: 1,
-        size: 10,
-        pages: 1,
-      },
+      items: mockContentItems,
+      total: mockContentItems.length,
+      page: 1,
+      size: 10,
+      pages: 1,
     });
   }),
 ];
