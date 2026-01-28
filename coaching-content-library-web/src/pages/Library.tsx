@@ -4,6 +4,7 @@ import { Card } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { DrillCard } from '@/components/drills/DrillCard';
 import type { ContentItem } from '@/lib/types';
+import { DrillGrid } from '@/components/drills/DrillGrid';
 
 /**
  * Loading Skeleton Component
@@ -97,17 +98,7 @@ function SuccessState({ drills }: SuccessStateProps) {
     return <EmptyState />;
   }
 
-  return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {drills.map((drill) => (
-        <DrillCard
-          key={drill.id}
-          drill={drill}
-          onClick={() => console.log('Open drill detail (Story 3.1):', drill.id)}
-        />
-      ))}
-    </div>
-  );
+  return <DrillGrid drills={drills} />;
 }
 
 /**
