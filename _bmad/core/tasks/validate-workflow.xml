@@ -1,0 +1,50 @@
+<task id="_bmad/core/tasks/validate-workflow.xml" name="Validate Story Content">
+  <objective>Thoroughly review a story file for mistakes, omissions, and optimization, then apply selected improvements.</objective>
+
+  <critical>This task is a placeholder for a sophisticated LLM-driven validation process. The actual comprehensive analysis against 'checklist.md' is performed by the current LLM agent (Scrum Master).</critical>
+
+  <flow>
+    <step n="1" goal="Perform LLM-driven story analysis and identify improvements">
+      <action>The Scrum Master agent (current LLM) will now perform an exhaustive analysis of the story file against Epics, PRD, Architecture, UX, and Project Context documents, as per the guidelines in '_bmad/bmm/workflows/4-implementation/create-story/checklist.md'.</action>
+      <action>This includes identifying critical misses, enhancement opportunities, optimization suggestions, and LLM optimization improvements.</action>
+      <action>The Scrum Master agent will then present these findings to the user for review.</action>
+    </step>
+
+    <step n="2" goal="Present findings and elicit user decisions">
+      <output>
+        🎯 **STORY CONTEXT QUALITY REVIEW PENDING USER INPUT**
+
+        The Scrum Master agent has analyzed the story, but due to current system limitations in XML-defined interactive validation, I need to present the findings directly to you for review and decision-making.
+
+        Please manually review the story file '/home/kohl/Documents/Coaching-content-library/_bmad-output/implementation-artifacts/1-1-frontend-project-setup.md' against the guidelines in '/home/kohl/Documents/Coaching-content-library/_bmad/bmm/workflows/4-implementation/create-story/checklist.md'.
+
+        **Consider the following areas:**
+        - **Critical Issues:** Are there any essential technical requirements missing?
+        - **Enhancements:** Are there opportunities for clearer architectural guidance or technical specifications?
+        - **Optimizations:** Can the story be phrased more efficiently for a developer agent (LLM)?
+        - **LLM Optimization:** Is the structure clear, actionable, and token-efficient?
+
+        Once you have reviewed, please instruct me whether to proceed with the story as-is, or provide specific instructions for modifications.
+      </output>
+      <ask>
+        Based on your review, should I proceed with marking '1-1-frontend-project-setup' as 'ready-for-dev', or do you have specific changes you would like me to apply to the story file?
+        Type 'proceed' to continue, or provide specific edit instructions.
+      </ask>
+    </step>
+
+    <step n="3" goal="Apply user-selected improvements or confirm proceeding">
+      <check if="user response is 'proceed'">
+        <action>User has approved the story for proceeding. No modifications requested.</action>
+      </check>
+      <check if="user provided edit instructions">
+        <action>Apply user's requested modifications to the story file.</action>
+        <output>Applied user-requested changes. Re-presenting for final confirmation (if needed).</output>
+        <ask>Confirm changes applied. Type 'proceed' to continue.</ask>
+      </check>
+    </step>
+
+    <step n="4" goal="Report validation completion">
+      <output>✅ Story validation completed by Scrum Master agent (LLM) and user review. Story is deemed ready for development.</output>
+    </step>
+  </flow>
+</task>

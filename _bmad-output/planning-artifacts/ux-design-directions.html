@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coaching Content Library - Design Directions</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Hockey Blue Palette */
+            --hockey-blue-50: #f0f4f8;
+            --hockey-blue-100: #d9e2ec;
+            --hockey-blue-200: #bcccdc;
+            --hockey-blue-500: #1e3a5f;
+            --hockey-blue-600: #183050;
+            --hockey-blue-900: #0a1628;
+
+            /* Ice Blue Palette */
+            --ice-blue-400: #38bdf8;
+            --ice-blue-500: #0ea5e9;
+
+            /* Neutral Palette */
+            --glacier-white: #f8fafc;
+            --rink-gray-200: #e2e8f0;
+            --rink-gray-400: #94a3b8;
+            --rink-gray-500: #64748b;
+            --rink-gray-600: #475569;
+
+            /* Source Colors */
+            --youtube-red: #ff0000;
+            --reddit-orange: #ff4500;
+            --instagram-pink: #e1306c;
+            --tiktok-black: #000000;
+
+            /* Difficulty Colors */
+            --beginner-green: #22c55e;
+            --intermediate-amber: #f59e0b;
+            --advanced-red: #ef4444;
+
+            /* Typography */
+            --font-display: 'Poppins', system-ui, sans-serif;
+            --font-body: 'Inter', system-ui, sans-serif;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--glacier-white);
+            color: var(--hockey-blue-900);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 48px 32px;
+        }
+
+        h1 {
+            font-family: var(--font-display);
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--hockey-blue-900);
+            margin-bottom: 16px;
+        }
+
+        .intro {
+            font-size: 18px;
+            color: var(--rink-gray-600);
+            margin-bottom: 48px;
+            max-width: 800px;
+        }
+
+        .navigation {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 48px;
+            flex-wrap: wrap;
+        }
+
+        .nav-button {
+            padding: 12px 24px;
+            background: white;
+            border: 2px solid var(--hockey-blue-200);
+            border-radius: 8px;
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--hockey-blue-500);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .nav-button:hover {
+            border-color: var(--ice-blue-400);
+            color: var(--ice-blue-500);
+            transform: translateY(-2px);
+        }
+
+        .nav-button.active {
+            background: var(--hockey-blue-500);
+            color: white;
+            border-color: var(--hockey-blue-500);
+        }
+
+        .direction-section {
+            display: none;
+            margin-bottom: 64px;
+        }
+
+        .direction-section.active {
+            display: block;
+        }
+
+        .direction-header {
+            margin-bottom: 32px;
+            padding: 24px;
+            background: white;
+            border-radius: 12px;
+            border: 1px solid var(--rink-gray-200);
+        }
+
+        .direction-header h2 {
+            font-family: var(--font-display);
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--hockey-blue-900);
+            margin-bottom: 12px;
+        }
+
+        .direction-header p {
+            font-size: 16px;
+            color: var(--rink-gray-600);
+            margin-bottom: 16px;
+        }
+
+        .characteristics {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .characteristic-tag {
+            padding: 4px 12px;
+            background: var(--hockey-blue-50);
+            color: var(--hockey-blue-500);
+            border-radius: 16px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .mockup-container {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 24px rgba(30, 58, 95, 0.1);
+            border: 1px solid var(--rink-gray-200);
+        }
+
+        .mockup-header {
+            padding: 16px 24px;
+            background: var(--hockey-blue-500);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .mockup-title {
+            font-family: var(--font-display);
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .mockup-nav {
+            display: flex;
+            gap: 24px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .mockup-nav a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.9;
+        }
+
+        .mockup-nav a:hover {
+            opacity: 1;
+        }
+
+        .mockup-content {
+            padding: 24px;
+            background: var(--glacier-white);
+        }
+
+        /* Search Hero Direction */
+        .search-hero {
+            padding: 64px 32px;
+            background: linear-gradient(135deg, var(--hockey-blue-500) 0%, var(--hockey-blue-600) 100%);
+            text-align: center;
+            color: white;
+        }
+
+        .search-hero h1 {
+            color: white;
+            margin-bottom: 24px;
+        }
+
+        .search-hero-input {
+            width: 100%;
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 16px 24px;
+            font-size: 18px;
+            border: 3px solid white;
+            border-radius: 12px;
+            outline: none;
+        }
+
+        /* Drill Card Styles */
+        .drill-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+            margin-top: 24px;
+        }
+
+        .drill-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--rink-gray-200);
+            cursor: pointer;
+            transition: all 0.25s;
+            position: relative;
+        }
+
+        .drill-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(30, 58, 95, 0.15);
+            border-color: var(--ice-blue-400);
+        }
+
+        .drill-thumbnail {
+            width: 100%;
+            height: 160px;
+            background: linear-gradient(135deg, var(--rink-gray-200) 0%, var(--rink-gray-400) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--rink-gray-500);
+            font-size: 14px;
+            position: relative;
+        }
+
+        .source-badge {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 600;
+            color: white;
+        }
+
+        .source-youtube { background: var(--youtube-red); }
+        .source-reddit { background: var(--reddit-orange); }
+        .source-instagram { background: var(--instagram-pink); }
+        .source-tiktok { background: var(--tiktok-black); }
+
+        .drill-card-body {
+            padding: 12px;
+        }
+
+        .drill-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--hockey-blue-900);
+            margin-bottom: 8px;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .drill-meta {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .badge-beginner { background: var(--beginner-green); color: white; }
+        .badge-intermediate { background: var(--intermediate-amber); color: white; }
+        .badge-advanced { background: var(--advanced-red); color: white; }
+
+        /* Filter Bar Styles */
+        .filter-bar {
+            display: flex;
+            gap: 12px;
+            padding: 16px;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid var(--rink-gray-200);
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .filter-select {
+            padding: 8px 16px;
+            border: 1px solid var(--rink-gray-200);
+            border-radius: 6px;
+            font-size: 14px;
+            color: var(--hockey-blue-900);
+            cursor: pointer;
+        }
+
+        /* Sidebar Styles */
+        .layout-sidebar {
+            display: flex;
+            gap: 24px;
+        }
+
+        .sidebar {
+            width: 260px;
+            flex-shrink: 0;
+        }
+
+        .sidebar-section {
+            background: white;
+            padding: 16px;
+            border-radius: 8px;
+            border: 1px solid var(--rink-gray-200);
+            margin-bottom: 16px;
+        }
+
+        .sidebar-section h3 {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--hockey-blue-900);
+            margin-bottom: 12px;
+        }
+
+        .sidebar-option {
+            padding: 8px 12px;
+            font-size: 14px;
+            color: var(--rink-gray-600);
+            border-radius: 6px;
+            cursor: pointer;
+            margin-bottom: 4px;
+        }
+
+        .sidebar-option:hover {
+            background: var(--hockey-blue-50);
+            color: var(--hockey-blue-500);
+        }
+
+        .main-content {
+            flex: 1;
+        }
+
+        /* Compact styles */
+        .compact-card {
+            padding: 12px;
+        }
+
+        .drill-grid-compact {
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 16px;
+        }
+
+        .drill-card-compact .drill-thumbnail {
+            height: 120px;
+        }
+
+        /* Masonry styles */
+        .drill-grid-masonry {
+            column-count: 3;
+            column-gap: 24px;
+        }
+
+        .drill-card-masonry {
+            break-inside: avoid;
+            margin-bottom: 24px;
+        }
+
+        /* Split screen styles */
+        .split-layout {
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: 24px;
+            height: 600px;
+        }
+
+        .split-filters {
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            border: 1px solid var(--rink-gray-200);
+            overflow-y: auto;
+        }
+
+        .split-results {
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            border: 1px solid var(--rink-gray-200);
+            overflow-y: auto;
+        }
+
+        @media (max-width: 1024px) {
+            .drill-grid {
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            }
+
+            .split-layout {
+                grid-template-columns: 1fr;
+                height: auto;
+            }
+
+            .layout-sidebar {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+            }
+
+            .drill-grid-masonry {
+                column-count: 2;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .drill-grid,
+            .drill-grid-compact {
+                grid-template-columns: 1fr;
+            }
+
+            .drill-grid-masonry {
+                column-count: 1;
+            }
+
+            .container {
+                padding: 24px 16px;
+            }
+        }
+
+        .evaluation-criteria {
+            background: var(--hockey-blue-50);
+            padding: 24px;
+            border-radius: 12px;
+            margin-top: 48px;
+        }
+
+        .evaluation-criteria h2 {
+            font-family: var(--font-display);
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--hockey-blue-900);
+            margin-bottom: 16px;
+        }
+
+        .criteria-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+        }
+
+        .criterion {
+            background: white;
+            padding: 16px;
+            border-radius: 8px;
+        }
+
+        .criterion h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--hockey-blue-900);
+            margin-bottom: 8px;
+        }
+
+        .criterion p {
+            font-size: 14px;
+            color: var(--rink-gray-600);
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>🏒 Coaching Content Library - Design Directions</h1>
+        <p class="intro">
+            Explore 6 different visual design directions for the Library page. Each direction explores different approaches to search prominence, information density, and visual hierarchy. Click through each option to see how the interface would look and feel.
+        </p>
+
+        <nav class="navigation">
+            <button class="nav-button active" onclick="showDirection('direction1')">Direction 1: Search Hero</button>
+            <button class="nav-button" onclick="showDirection('direction2')">Direction 2: Compact Dashboard</button>
+            <button class="nav-button" onclick="showDirection('direction3')">Direction 3: Pinterest Inspired</button>
+            <button class="nav-button" onclick="showDirection('direction4')">Direction 4: Split Screen</button>
+            <button class="nav-button" onclick="showDirection('direction5')">Direction 5: Minimal Clean</button>
+            <button class="nav-button" onclick="showDirection('direction6')">Direction 6: Bold Graphic</button>
+        </nav>
+
+        <!-- Direction 1: Search Hero -->
+        <div id="direction1" class="direction-section active">
+            <div class="direction-header">
+                <h2>Direction 1: Search Hero</h2>
+                <p>Search bar dominates the interface as a hero element. Large, prominent search invites immediate interaction and establishes semantic search as the primary entry point.</p>
+                <div class="characteristics">
+                    <span class="characteristic-tag">Search-First</span>
+                    <span class="characteristic-tag">Bold Typography</span>
+                    <span class="characteristic-tag">Spacious Layout</span>
+                    <span class="characteristic-tag">High Contrast</span>
+                </div>
+            </div>
+
+            <div class="mockup-container">
+                <div class="mockup-header">
+                    <div class="mockup-title">🏒 Drill Library</div>
+                    <nav class="mockup-nav">
+                        <a href="#">Library</a>
+                        <a href="#">Planner</a>
+                        <a href="#">+ Add</a>
+                    </nav>
+                </div>
+
+                <div class="search-hero">
+                    <h1>Find the Perfect Drill</h1>
+                    <input type="search" class="search-hero-input" placeholder="Search your drills... (e.g., 'butterfly drills for improving recovery')" />
+                    <p style="margin-top: 16px; font-size: 14px; opacity: 0.9;">Searches understand coaching terms like 'T-push,' 'tracking,' and 'recovery'</p>
+                </div>
+
+                <div class="mockup-content">
+                    <div class="filter-bar">
+                        <select class="filter-select">
+                            <option>Source: All</option>
+                        </select>
+                        <select class="filter-select">
+                            <option>Difficulty: All</option>
+                        </select>
+                        <select class="filter-select">
+                            <option>Drill Type: All</option>
+                        </select>
+                    </div>
+
+                    <div class="drill-grid">
+                        <div class="drill-card">
+                            <div class="drill-thumbnail">
+                                <span class="source-badge source-youtube">YouTube</span>
+                                <span>🎬 Thumbnail</span>
+                            </div>
+                            <div class="drill-card-body">
+                                <div class="drill-title">Butterfly Push Drill for Beginners</div>
+                                <div class="drill-meta">
+                                    <span class="badge badge-beginner">Beginner</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="drill-card">
+                            <div class="drill-thumbnail" style="background: linear-gradient(135deg, #f09433 0%, #bc1888 100%);">
+                                <span class="source-badge source-instagram">Instagram</span>
+                                <span style="font-size: 48px; opacity: 0.3;">🥅</span>
+                            </div>
+                            <div class="drill-card-body">
+                                <div class="drill-title">T-Push Recovery Technique</div>
+                                <div class="drill-meta">
+                                    <span class="badge badge-intermediate">Intermediate</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="drill-card">
+                            <div class="drill-thumbnail">
+                                <span class="source-badge source-reddit">Reddit</span>
+                                <span>📝 Post</span>
+                            </div>
+                            <div class="drill-card-body">
+                                <div class="drill-title">Tracking Drill Progression</div>
+                                <div class="drill-meta">
+                                    <span class="badge badge-advanced">Advanced</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="drill-card">
+                            <div class="drill-thumbnail" style="background: var(--tiktok-black);">
+                                <span class="source-badge source-tiktok">TikTok</span>
+                                <span style="font-size: 48px; opacity: 0.3; color: #00f2ea;">🥅</span>
+                            </div>
+                            <div class="drill-card-body">
+                                <div class="drill-title">Quick Glove Save Reaction Drill</div>
+                                <div class="drill-meta">
+                                    <span class="badge badge-beginner">Beginner</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Direction 2: Compact Dashboard -->
+        <div id="direction2" class="direction-section">
+            <div class="direction-header">
+                <h2>Direction 2: Compact Dashboard</h2>
+                <p>Sidebar filters with denser information display. Maximizes content visible on screen, emphasizing efficiency and quick scanning.</p>
+                <div class="characteristics">
+                    <span class="characteristic-tag">High Density</span>
+                    <span class="characteristic-tag">Sidebar Navigation</span>
+                    <span class="characteristic-tag">Efficient Scanning</span>
+                    <span class="characteristic-tag">Dashboard Feel</span>
+                </div>
+            </div>
+
+            <div class="mockup-container">
+                <div class="mockup-header">
+                    <div class="mockup-title">🏒 Drill Library</div>
+                    <nav class="mockup-nav">
+                        <a href="#">Library</a>
+                        <a href="#">Planner</a>
+                        <a href="#">+ Add</a>
+                    </nav>
+                </div>
+
+                <div class="mockup-content">
+                    <div class="layout-sidebar">
+                        <aside class="sidebar">
+                            <div class="sidebar-section">
+                                <h3>Search</h3>
+                                <input type="search" style="width: 100%; padding: 8px; border: 1px solid var(--rink-gray-200); border-radius: 6px;" placeholder="Search drills..." />
+                            </div>
+
+                            <div class="sidebar-section">
+                                <h3>Source</h3>
+                                <div class="sidebar-option">📺 YouTube</div>
+                                <div class="sidebar-option">📱 Instagram</div>
+                                <div class="sidebar-option">🔶 Reddit</div>
+                                <div class="sidebar-option">🎵 TikTok</div>
+                            </div>
+
+                            <div class="sidebar-section">
+                                <h3>Difficulty</h3>
+                                <div class="sidebar-option">🟢 Beginner</div>
+                                <div class="sidebar-option">🟡 Intermediate</div>
+                                <div class="sidebar-option">🔴 Advanced</div>
+                            </div>
+
+                            <div class="sidebar-section">
+                                <h3>Drill Type</h3>
+                                <div class="sidebar-option">Warmup</div>
+                                <div class="sidebar-option">Main</div>
+                                <div class="sidebar-option">Game</div>
+                            </div>
+                        </aside>
+
+                        <main class="main-content">
+                            <h2 style="font-size: 20px; margin-bottom: 16px; font-family: var(--font-display);">All Drills (24)</h2>
+
+                            <div class="drill-grid drill-grid-compact">
+                                <div class="drill-card drill-card-compact">
+                                    <div class="drill-thumbnail" style="height: 120px;">
+                                        <span class="source-badge source-youtube">YT</span>
+                                        <span>🎬</span>
+                                    </div>
+                                    <div class="drill-card-body">
+                                        <div class="drill-title" style="font-size: 14px;">Butterfly Push Drill</div>
+                                        <div class="drill-meta">
+                                            <span class="badge badge-beginner" style="font-size: 10px;">Beginner</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="drill-card drill-card-compact">
+                                    <div class="drill-thumbnail" style="height: 120px; background: linear-gradient(135deg, #f09433 0%, #bc1888 100%);">
+                                        <span class="source-badge source-instagram">IG</span>
+                                        <span style="font-size: 32px; opacity: 0.3;">🥅</span>
+                                    </div>
+                                    <div class="drill-card-body">
+                                        <div class="drill-title" style="font-size: 14px;">T-Push Recovery</div>
+                                        <div class="drill-meta">
+                                            <span class="badge badge-intermediate" style="font-size: 10px;">Inter.</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="drill-card drill-card-compact">
+                                    <div class="drill-thumbnail" style="height: 120px;">
+                                        <span class="source-badge source-reddit">Reddit</span>
+                                        <span>📝</span>
+                                    </div>
+                                    <div class="drill-card-body">
+                                        <div class="drill-title" style="font-size: 14px;">Tracking Progression</div>
+                                        <div class="drill-meta">
+                                            <span class="badge badge-advanced" style="font-size: 10px;">Advanced</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="drill-card drill-card-compact">
+                                    <div class="drill-thumbnail" style="height: 120px; background: var(--tiktok-black);">
+                                        <span class="source-badge source-tiktok">TT</span>
+                                        <span style="font-size: 32px; opacity: 0.3; color: #00f2ea;">🥅</span>
+                                    </div>
+                                    <div class="drill-card-body">
+                                        <div class="drill-title" style="font-size: 14px;">Glove Save Drill</div>
+                                        <div class="drill-meta">
+                                            <span class="badge badge-beginner" style="font-size: 10px;">Beginner</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="drill-card drill-card-compact">
+                                    <div class="drill-thumbnail" style="height: 120px;">
+                                        <span class="source-badge source-youtube">YT</span>
+                                        <span>🎬</span>
+                                    </div>
+                                    <div class="drill-card-body">
+                                        <div class="drill-title" style="font-size: 14px;">Lateral Movement</div>
+                                        <div class="drill-meta">
+                                            <span class="badge badge-intermediate" style="font-size: 10px;">Inter.</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="drill-card drill-card-compact">
+                                    <div class="drill-thumbnail" style="height: 120px;">
+                                        <span class="source-badge source-youtube">YT</span>
+                                        <span>🎬</span>
+                                    </div>
+                                    <div class="drill-card-body">
+                                        <div class="drill-title" style="font-size: 14px;">Post Integration</div>
+                                        <div class="drill-meta">
+                                            <span class="badge badge-advanced" style="font-size: 10px;">Advanced</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </main>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Direction 3: Pinterest Inspired -->
+        <div id="direction3" class="direction-section">
+            <div class="direction-header">
+                <h2>Direction 3: Pinterest Inspired</h2>
+                <p>Masonry grid layout with minimal chrome. Emphasizes visual discovery through thumbnails, with actions appearing on hover.</p>
+                <div class="characteristics">
+                    <span class="characteristic-tag">Visual Discovery</span>
+                    <span class="characteristic-tag">Masonry Grid</span>
+                    <span class="characteristic-tag">Hover Actions</span>
+                    <span class="characteristic-tag">Minimal UI</span>
+                </div>
+            </div>
+
+            <div class="mockup-container">
+                <div class="mockup-header">
+                    <div class="mockup-title">🏒 Drill Library</div>
+                    <nav class="mockup-nav">
+                        <a href="#">Library</a>
+                        <a href="#">Planner</a>
+                        <a href="#">+ Add</a>
+                    </nav>
+                </div>
+
+                <div class="mockup-content">
+                    <div style="max-width: 800px; margin: 0 auto 24px;">
+                        <input type="search" style="width: 100%; padding: 16px; border: 2px solid var(--rink-gray-200); border-radius: 24px; font-size: 16px;" placeholder="🔍 Search drills..." />
+                    </div>
+
+                    <div class="drill-grid-masonry">
+                        <div class="drill-card drill-card-masonry" style="border: none; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                            <div class="drill-thumbnail" style="height: 180px;">
+                                <span class="source-badge source-youtube">YouTube</span>
+                                <span>🎬 Thumbnail</span>
+                            </div>
+                            <div class="drill-card-body">
+                                <div class="drill-title">Butterfly Push Drill for Beginners</div>
+                                <div class="drill-meta">
+                                    <span class="badge badge-beginner">Beginner</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="drill-card drill-card-masonry" style="border: none; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                            <div class="drill-thumbnail" style="height: 220px; background: linear-gradient(135deg, #f09433 0%, #bc1888 100%);">
+                                <span class="source-badge source-instagram">Instagram</span>
+                                <span style="font-size: 64px; opacity: 0.3;">🥅</span>
+                            </div>
+                            <div class="drill-card-body">
+                                <div class="drill-title">T-Push Recovery Technique</div>
+                                <div class="drill-meta">
+                                    <span class="badge badge-intermediate">Intermediate</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="drill-card drill-card-masonry" style="border: none; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                            <div class="drill-thumbnail" style="height: 160px;">
+                                <span class="source-badge source-reddit">Reddit</span>
+                                <span>📝 Post Content</span>
+                            </div>
+                            <div class="drill-card-body">
+                                <div class="drill-title">Tracking Drill Progression Framework</div>
+                                <div class="drill-meta">
+                                    <span class="badge badge-advanced">Advanced</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="drill-card drill-card-masonry" style="border: none; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                            <div class="drill-thumbnail" style="height: 200px; background: var(--tiktok-black);">
+                                <span class="source-badge source-tiktok">TikTok</span>
+                                <span style="font-size: 64px; opacity: 0.3; color: #00f2ea;">🥅</span>
+                            </div>
+                            <div class="drill-card-body">
+                                <div class="drill-title">Quick Glove Save Reaction</div>
+                                <div class="drill-meta">
+                                    <span class="badge badge-beginner">Beginner</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="drill-card drill-card-masonry" style="border: none; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                            <div class="drill-thumbnail" style="height: 190px;">
+                                <span class="source-badge source-youtube">YouTube</span>
+                                <span>🎬 Thumbnail</span>
+                            </div>
+                            <div class="drill-card-body">
+                                <div class="drill-title">Lateral Movement Fundamentals</div>
+                                <div class="drill-meta">
+                                    <span class="badge badge-intermediate">Intermediate</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="drill-card drill-card-masonry" style="border: none; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                            <div class="drill-thumbnail" style="height: 170px;">
+                                <span class="source-badge source-youtube">YouTube</span>
+                                <span>🎬 Thumbnail</span>
+                            </div>
+                            <div class="drill-card-body">
+                                <div class="drill-title">Post Integration Advanced Techniques</div>
+                                <div class="drill-meta">
+                                    <span class="badge badge-advanced">Advanced</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Direction 4: Split Screen -->
+        <div id="direction4" class="direction-section">
+            <div class="direction-header">
+                <h2>Direction 4: Split Screen</h2>
+                <p>Persistent filters panel with dedicated search and results zones. Clear separation between controls and content, with both always visible.</p>
+                <div class="characteristics">
+                    <span class="characteristic-tag">Persistent Filters</span>
+                    <span class="characteristic-tag">Two-Panel Layout</span>
+                    <span class="characteristic-tag">Always Visible Controls</span>
+                    <span class="characteristic-tag">Power User Focus</span>
+                </div>
+            </div>
+
+            <div class="mockup-container">
+                <div class="mockup-header">
+                    <div class="mockup-title">🏒 Drill Library</div>
+                    <nav class="mockup-nav">
+                        <a href="#">Library</a>
+                        <a href="#">Planner</a>
+                        <a href="#">+ Add</a>
+                    </nav>
+                </div>
+
+                <div class="mockup-content">
+                    <div class="split-layout">
+                        <div class="split-filters">
+                            <h2 style="font-size: 18px; font-weight: 700; margin-bottom: 16px; font-family: var(--font-display);">Search & Filters</h2>
+
+                            <div style="margin-bottom: 24px;">
+                                <label style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px;">Search</label>
+                                <input type="search" style="width: 100%; padding: 12px; border: 1px solid var(--rink-gray-200); border-radius: 6px;" placeholder="Search drills..." />
+                            </div>
+
+                            <div style="margin-bottom: 24px;">
+                                <label style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px;">Source</label>
+                                <div style="display: flex; flex-direction: column; gap: 8px;">
+                                    <label style="display: flex; align-items: center; gap: 8px; font-size: 14px;">
+                                        <input type="checkbox" checked /> YouTube
+                                    </label>
+                                    <label style="display: flex; align-items: center; gap: 8px; font-size: 14px;">
+                                        <input type="checkbox" checked /> Instagram
+                                    </label>
+                                    <label style="display: flex; align-items: center; gap: 8px; font-size: 14px;">
+                                        <input type="checkbox" checked /> Reddit
+                                    </label>
+                                    <label style="display: flex; align-items: center; gap: 8px; font-size: 14px;">
+                                        <input type="checkbox" checked /> TikTok
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div style="margin-bottom: 24px;">
+                                <label style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px;">Difficulty</label>
+                                <div style="display: flex; flex-direction: column; gap: 8px;">
+                                    <label style="display: flex; align-items: center; gap: 8px; font-size: 14px;">
+                                        <input type="checkbox" checked /> Beginner
+                                    </label>
+                                    <label style="display: flex; align-items: center; gap: 8px; font-size: 14px;">
+                                        <input type="checkbox" checked /> Intermediate
+                                    </label>
+                                    <label style="display: flex; align-items: center; gap: 8px; font-size: 14px;">
+                                        <input type="checkbox" checked /> Advanced
+                                    </label>
+                                </div>
+                            </div>
+
+                            <button style="width: 100%; padding: 12px; background: var(--hockey-blue-500); color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer;">Clear Filters</button>
+                        </div>
+
+                        <div class="split-results">
+                            <h2 style="font-size: 18px; font-weight: 700; margin-bottom: 16px; font-family: var(--font-display);">24 Drills Found</h2>
+
+                            <div style="display: flex; flex-direction: column; gap: 16px;">
+                                <div class="drill-card" style="display: flex; gap: 16px;">
+                                    <div class="drill-thumbnail" style="width: 160px; height: 90px; flex-shrink: 0;">
+                                        <span class="source-badge source-youtube">YT</span>
+                                        <span>🎬</span>
+                                    </div>
+                                    <div class="drill-card-body">
+                                        <div class="drill-title" style="margin-bottom: 4px;">Butterfly Push Drill for Beginners</div>
+                                        <p style="font-size: 14px; color: var(--rink-gray-500); margin-bottom: 8px;">Great drill for learning proper butterfly push mechanics...</p>
+                                        <div class="drill-meta">
+                                            <span class="badge badge-beginner">Beginner</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="drill-card" style="display: flex; gap: 16px;">
+                                    <div class="drill-thumbnail" style="width: 160px; height: 90px; flex-shrink: 0; background: linear-gradient(135deg, #f09433 0%, #bc1888 100%);">
+                                        <span class="source-badge source-instagram">IG</span>
+                                        <span style="font-size: 32px; opacity: 0.3;">🥅</span>
+                                    </div>
+                                    <div class="drill-card-body">
+                                        <div class="drill-title" style="margin-bottom: 4px;">T-Push Recovery Technique</div>
+                                        <p style="font-size: 14px; color: var(--rink-gray-500); margin-bottom: 8px;">Improve your T-push recovery speed with this progression...</p>
+                                        <div class="drill-meta">
+                                            <span class="badge badge-intermediate">Intermediate</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="drill-card" style="display: flex; gap: 16px;">
+                                    <div class="drill-thumbnail" style="width: 160px; height: 90px; flex-shrink: 0;">
+                                        <span class="source-badge source-reddit">Reddit</span>
+                                        <span>📝</span>
+                                    </div>
+                                    <div class="drill-card-body">
+                                        <div class="drill-title" style="margin-bottom: 4px;">Tracking Drill Progression</div>
+                                        <p style="font-size: 14px; color: var(--rink-gray-500); margin-bottom: 8px;">A comprehensive framework for tracking drill progression...</p>
+                                        <div class="drill-meta">
+                                            <span class="badge badge-advanced">Advanced</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Direction 5: Minimal Clean -->
+        <div id="direction5" class="direction-section">
+            <div class="direction-header">
+                <h2>Direction 5: Minimal Clean</h2>
+                <p>Maximum whitespace with typography-driven hierarchy. Clean, uncluttered interface that lets content breathe. Emphasizes elegance and focus.</p>
+                <div class="characteristics">
+                    <span class="characteristic-tag">Maximum Whitespace</span>
+                    <span class="characteristic-tag">Typography Focus</span>
+                    <span class="characteristic-tag">Elegant</span>
+                    <span class="characteristic-tag">Content Breathing Room</span>
+                </div>
+            </div>
+
+            <div class="mockup-container">
+                <div class="mockup-header" style="background: white; color: var(--hockey-blue-900); border-bottom: 1px solid var(--rink-gray-200);">
+                    <div class="mockup-title">🏒 Drill Library</div>
+                    <nav class="mockup-nav">
+                        <a href="#" style="color: var(--hockey-blue-900);">Library</a>
+                        <a href="#" style="color: var(--rink-gray-500);">Planner</a>
+                        <a href="#" style="color: var(--rink-gray-500);">+ Add</a>
+                    </nav>
+                </div>
+
+                <div class="mockup-content" style="padding: 64px 48px;">
+                    <div style="text-align: center; margin-bottom: 64px;">
+                        <h1 style="font-size: 48px; font-weight: 300; margin-bottom: 24px; font-family: var(--font-display); color: var(--hockey-blue-900);">Your Drill Library</h1>
+                        <div style="max-width: 600px; margin: 0 auto;">
+                            <input type="search" style="width: 100%; padding: 16px 24px; border: none; border-bottom: 2px solid var(--rink-gray-200); font-size: 18px; text-align: center;" placeholder="Search drills..." />
+                        </div>
+                    </div>
+
+                    <div style="display: flex; justify-content: center; gap: 32px; margin-bottom: 48px;">
+                        <button style="padding: 8px 24px; background: transparent; border: 1px solid var(--hockey-blue-200); border-radius: 24px; color: var(--hockey-blue-500); font-weight: 500; cursor: pointer;">All Sources</button>
+                        <button style="padding: 8px 24px; background: transparent; border: 1px solid var(--hockey-blue-200); border-radius: 24px; color: var(--hockey-blue-500); font-weight: 500; cursor: pointer;">All Levels</button>
+                        <button style="padding: 8px 24px; background: transparent; border: 1px solid var(--hockey-blue-200); border-radius: 24px; color: var(--hockey-blue-500); font-weight: 500; cursor: pointer;">All Types</button>
+                    </div>
+
+                    <div class="drill-grid" style="gap: 48px;">
+                        <div class="drill-card" style="border: none; box-shadow: none;">
+                            <div class="drill-thumbnail" style="height: 200px; border-radius: 8px;">
+                                <span class="source-badge source-youtube">YouTube</span>
+                                <span>🎬 Thumbnail</span>
+                            </div>
+                            <div class="drill-card-body" style="padding: 16px 0;">
+                                <div class="drill-title" style="font-size: 18px;">Butterfly Push Drill</div>
+                                <p style="font-size: 14px; color: var(--rink-gray-500); margin: 8px 0;">For Beginners</p>
+                            </div>
+                        </div>
+
+                        <div class="drill-card" style="border: none; box-shadow: none;">
+                            <div class="drill-thumbnail" style="height: 200px; border-radius: 8px; background: linear-gradient(135deg, #f09433 0%, #bc1888 100%);">
+                                <span class="source-badge source-instagram">Instagram</span>
+                                <span style="font-size: 64px; opacity: 0.3;">🥅</span>
+                            </div>
+                            <div class="drill-card-body" style="padding: 16px 0;">
+                                <div class="drill-title" style="font-size: 18px;">T-Push Recovery</div>
+                                <p style="font-size: 14px; color: var(--rink-gray-500); margin: 8px 0;">Intermediate</p>
+                            </div>
+                        </div>
+
+                        <div class="drill-card" style="border: none; box-shadow: none;">
+                            <div class="drill-thumbnail" style="height: 200px; border-radius: 8px;">
+                                <span class="source-badge source-reddit">Reddit</span>
+                                <span>📝 Post</span>
+                            </div>
+                            <div class="drill-card-body" style="padding: 16px 0;">
+                                <div class="drill-title" style="font-size: 18px;">Tracking Progression</div>
+                                <p style="font-size: 14px; color: var(--rink-gray-500); margin: 8px 0;">Advanced</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Direction 6: Bold Graphic -->
+        <div id="direction6" class="direction-section">
+            <div class="direction-header">
+                <h2>Direction 6: Bold Graphic</h2>
+                <p>Strong use of color, prominent badges, and visual energy. Eye-catching design that creates immediate visual impact and makes difficulty/source instantly recognizable.</p>
+                <div class="characteristics">
+                    <span class="characteristic-tag">High Color Usage</span>
+                    <span class="characteristic-tag">Visual Impact</span>
+                    <span class="characteristic-tag">Prominent Badges</span>
+                    <span class="characteristic-tag">Energetic</span>
+                </div>
+            </div>
+
+            <div class="mockup-container">
+                <div class="mockup-header" style="background: linear-gradient(135deg, var(--hockey-blue-500) 0%, var(--ice-blue-500) 100%);">
+                    <div class="mockup-title">🏒 DRILL LIBRARY</div>
+                    <nav class="mockup-nav">
+                        <a href="#">LIBRARY</a>
+                        <a href="#">PLANNER</a>
+                        <a href="#">+ ADD</a>
+                    </nav>
+                </div>
+
+                <div class="mockup-content" style="background: var(--hockey-blue-900); padding: 32px;">
+                    <div style="background: white; padding: 24px; border-radius: 12px; margin-bottom: 24px;">
+                        <input type="search" style="width: 100%; padding: 16px 24px; border: 3px solid var(--ice-blue-400); border-radius: 12px; font-size: 18px; font-weight: 600;" placeholder="🔍 SEARCH YOUR DRILLS..." />
+                    </div>
+
+                    <div class="filter-bar" style="background: var(--hockey-blue-900); border: 2px solid var(--ice-blue-400); padding: 12px; margin-bottom: 24px;">
+                        <select class="filter-select" style="background: var(--ice-blue-400); color: white; font-weight: 600; border: none;">
+                            <option>📺 SOURCE</option>
+                        </select>
+                        <select class="filter-select" style="background: var(--intermediate-amber); color: white; font-weight: 600; border: none;">
+                            <option>🎯 DIFFICULTY</option>
+                        </select>
+                        <select class="filter-select" style="background: var(--beginner-green); color: white; font-weight: 600; border: none;">
+                            <option>⚡ DRILL TYPE</option>
+                        </select>
+                    </div>
+
+                    <div class="drill-grid">
+                        <div class="drill-card" style="border: 3px solid var(--youtube-red); box-shadow: 0 4px 16px rgba(255,0,0,0.3);">
+                            <div class="drill-thumbnail" style="border-bottom: 3px solid var(--youtube-red);">
+                                <span class="source-badge source-youtube" style="font-size: 12px; padding: 6px 12px;">YOUTUBE</span>
+                                <span>🎬 Thumbnail</span>
+                            </div>
+                            <div class="drill-card-body" style="padding: 16px;">
+                                <div class="drill-title" style="font-weight: 700;">Butterfly Push Drill</div>
+                                <div class="drill-meta" style="margin-top: 12px;">
+                                    <span class="badge badge-beginner" style="font-size: 12px; padding: 6px 12px;">🟢 BEGINNER</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="drill-card" style="border: 3px solid var(--instagram-pink); box-shadow: 0 4px 16px rgba(225,48,108,0.3);">
+                            <div class="drill-thumbnail" style="background: linear-gradient(135deg, #f09433 0%, #bc1888 100%); border-bottom: 3px solid var(--instagram-pink);">
+                                <span class="source-badge source-instagram" style="font-size: 12px; padding: 6px 12px;">INSTAGRAM</span>
+                                <span style="font-size: 64px; opacity: 0.3;">🥅</span>
+                            </div>
+                            <div class="drill-card-body" style="padding: 16px;">
+                                <div class="drill-title" style="font-weight: 700;">T-Push Recovery</div>
+                                <div class="drill-meta" style="margin-top: 12px;">
+                                    <span class="badge badge-intermediate" style="font-size: 12px; padding: 6px 12px;">🟡 INTERMEDIATE</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="drill-card" style="border: 3px solid var(--reddit-orange); box-shadow: 0 4px 16px rgba(255,69,0,0.3);">
+                            <div class="drill-thumbnail" style="border-bottom: 3px solid var(--reddit-orange);">
+                                <span class="source-badge source-reddit" style="font-size: 12px; padding: 6px 12px;">REDDIT</span>
+                                <span>📝 Post</span>
+                            </div>
+                            <div class="drill-card-body" style="padding: 16px;">
+                                <div class="drill-title" style="font-weight: 700;">Tracking Progression</div>
+                                <div class="drill-meta" style="margin-top: 12px;">
+                                    <span class="badge badge-advanced" style="font-size: 12px; padding: 6px 12px;">🔴 ADVANCED</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="drill-card" style="border: 3px solid #00f2ea; box-shadow: 0 4px 16px rgba(0,242,234,0.3);">
+                            <div class="drill-thumbnail" style="background: var(--tiktok-black); border-bottom: 3px solid #00f2ea;">
+                                <span class="source-badge source-tiktok" style="font-size: 12px; padding: 6px 12px; background: #00f2ea; color: black;">TIKTOK</span>
+                                <span style="font-size: 64px; opacity: 0.3; color: #00f2ea;">🥅</span>
+                            </div>
+                            <div class="drill-card-body" style="padding: 16px;">
+                                <div class="drill-title" style="font-weight: 700;">Glove Save Drill</div>
+                                <div class="drill-meta" style="margin-top: 12px;">
+                                    <span class="badge badge-beginner" style="font-size: 12px; padding: 6px 12px;">🟢 BEGINNER</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Evaluation Criteria -->
+        <div class="evaluation-criteria">
+            <h2>🎯 Evaluation Guide: How to Choose Your Direction</h2>
+            <p style="margin-bottom: 24px; color: var(--rink-gray-600);">
+                As you explore each design direction, consider these criteria to determine which approach best fits your needs and preferences:
+            </p>
+
+            <div class="criteria-list">
+                <div class="criterion">
+                    <h3>✅ Layout Intuitiveness</h3>
+                    <p>Which information hierarchy matches your workflow? Does search feel like the natural starting point, or do you prefer filters front and center?</p>
+                </div>
+
+                <div class="criterion">
+                    <h3>✅ Visual Density</h3>
+                    <p>Do you want to see more drills at once (compact) or prefer generous spacing for easier scanning (spacious)? Consider your typical screen size.</p>
+                </div>
+
+                <div class="criterion">
+                    <h3>✅ Visual Weight</h3>
+                    <p>Should the interface feel calm and minimal, or bold and energetic? Which visual style represents your coaching brand and personality?</p>
+                </div>
+
+                <div class="criterion">
+                    <h3>✅ Search Prominence</h3>
+                    <p>How central should semantic search be? Hero element dominating the page, or integrated naturally alongside filters?</p>
+                </div>
+
+                <div class="criterion">
+                    <h3>✅ Filter Accessibility</h3>
+                    <p>Do you want filters always visible (sidebar/split), hidden until needed (dropdown), or minimal (pills)? How often will you use them?</p>
+                </div>
+
+                <div class="criterion">
+                    <h3>✅ Brand Alignment</h3>
+                    <p>Which direction best supports your emotional goals (confidence, trust, efficiency)? Does it feel professional enough for portfolio showcase?</p>
+                </div>
+
+                <div class="criterion">
+                    <h3>✅ Scalability</h3>
+                    <p>As your library grows to 100+ drills, which layout will still feel manageable and scannable? Which approach ages well?</p>
+                </div>
+
+                <div class="criterion">
+                    <h3>✅ Mobile Experience</h3>
+                    <p>Which direction translates best to mobile? Remember: you plan lessons on-the-go. Consider touch targets and screen real estate.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showDirection(directionId) {
+            // Hide all directions
+            const directions = document.querySelectorAll('.direction-section');
+            directions.forEach(dir => dir.classList.remove('active'));
+
+            // Remove active state from all buttons
+            const buttons = document.querySelectorAll('.nav-button');
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            // Show selected direction
+            document.getElementById(directionId).classList.add('active');
+
+            // Add active state to clicked button
+            event.target.classList.add('active');
+
+            // Scroll to top of direction
+            document.getElementById(directionId).scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    </script>
+</body>
+</html>

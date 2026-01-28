@@ -1,0 +1,25 @@
+# CLI
+typer[all]>=0.9.0
+
+# Configuration
+pydantic>=2.0.0
+pydantic-settings>=2.0.0
+python-dotenv>=1.0.0
+
+# API clients
+google-api-python-client>=2.0.0
+praw>=7.7.0
+httpx>=0.26.0
+
+# Phase 2: Backend API and Discord Bot
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+discord.py>=2.3.0
+python-multipart>=0.0.6
+
+# Storage
+sqlalchemy>=2.0.0
+
+# Testing
+pytest>=7.0.0
+pytest-cov>=4.0.0
