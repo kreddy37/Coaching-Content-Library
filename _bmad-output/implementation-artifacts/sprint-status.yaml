@@ -51,7 +51,7 @@ development_status:
   epic-2: in-progress
   2-1-drill-library-page-data-fetching: done
   2-2-drillcard-component: done
-  2-3-responsive-grid-layout: in-progress
+  2-3-responsive-grid-layout: review
   2-4-source-icons-difficulty-badges: backlog
   2-5-empty-state-component: backlog
   epic-2-retrospective: optional

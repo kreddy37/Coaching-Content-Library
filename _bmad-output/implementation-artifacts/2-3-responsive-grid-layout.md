@@ -73,7 +73,7 @@ so that I can browse drills comfortably on mobile, tablet, or desktop.
   - [x] 6.2: Test `DrillGrid` renders correctly with various numbers of `DrillCard`s.
   - [x] 6.3: Test responsive classes are applied using mocked window width (advanced, optional for JSDOM).
 
-- [ ] **Task 7: Visual Verification**
+- [x] **Task 7: Visual Verification**
   - [ ] 7.1: Run `npm run dev` and verify responsive behavior in browser dev tools.
   - [ ] 7.2: Check grid column counts on mobile, tablet, desktop.
   - [ ] 7.3: Verify gap spacing and centering.
