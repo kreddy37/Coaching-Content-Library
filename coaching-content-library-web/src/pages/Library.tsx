@@ -7,27 +7,6 @@ import type { ContentItem } from '@/lib/types';
 import { DrillGrid } from '@/components/drills/DrillGrid';
 
 /**
- * Loading Skeleton Component
- * Displays 3-4 card placeholders with shimmer animation while data loads
- */
-function LoadingState() {
-  return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {Array.from({ length: 4 }).map((_, index) => (
-        <Card key={index} className="overflow-hidden" data-testid="loading-skeleton">
-          <Skeleton className="w-full h-48" />
-          <div className="p-4 space-y-3">
-            <Skeleton className="h-6 w-3/4" />
-            <Skeleton className="h-4 w-full" />
-            <Skeleton className="h-4 w-2/3" />
-          </div>
-        </Card>
-      ))}
-    </div>
-  );
-}
-
-/**
  * Error State Component Props
  */
 export interface ErrorStateProps {
@@ -79,27 +58,11 @@ function EmptyState() {
   );
 }
 
-// DrillCard component now imported from @/components/drills/DrillCard
 // Placeholder onClick handler - Story 3.1 will implement DrillDetail sheet
-
-/**
- * Success State Component Props
- */
-export interface SuccessStateProps {
-  drills: ContentItem[];
-}
-
-/**
- * Success State Component
- * Displays drill cards in responsive grid layout
- */
-function SuccessState({ drills }: SuccessStateProps) {
-  if (drills.length === 0) {
-    return <EmptyState />;
-  }
-
-  return <DrillGrid drills={drills} />;
-}
+const handleDrillClick = (drill: ContentItem) => {
+  // To be implemented in Story 3.1
+  console.log('Clicked drill:', drill.id);
+};
 
 /**
  * Library Page Component
@@ -108,6 +71,44 @@ function SuccessState({ drills }: SuccessStateProps) {
  */
 export function Library() {
   const { data, isLoading, isError, refetch } = useContentList();
+
+  const renderContent = () => {
+    if (isError) {
+      return <ErrorState onRetry={() => refetch()} />;
+    }
+
+    if (isLoading) {
+      return (
+        <DrillGrid>
+          {Array.from({ length: 4 }).map((_, index) => (
+            <Card key={index} className="overflow-hidden" data-testid="loading-skeleton">
+              <Skeleton className="w-full h-48" />
+              <div className="p-4 space-y-3">
+                <Skeleton className="h-6 w-3/4" />
+                <Skeleton className="h-4 w-full" />
+                <Skeleton className="h-4 w-2/3" />
+              </div>
+            </Card>
+          ))}
+        </DrillGrid>
+      );
+    }
+
+    if (data) {
+      if (data.items.length === 0) {
+        return <EmptyState />;
+      }
+      return (
+        <DrillGrid>
+          {data.items.map((drill) => (
+            <DrillCard key={drill.id} drill={drill} onClick={() => handleDrillClick(drill)} />
+          ))}
+        </DrillGrid>
+      );
+    }
+
+    return null;
+  };
 
   return (
     <div>
@@ -119,10 +120,9 @@ export function Library() {
           Browse and access your collection of saved drills
         </p>
       </div>
-
-      {isLoading && <LoadingState />}
-      {isError && <ErrorState onRetry={() => refetch()} />}
-      {data && <SuccessState drills={data.items} />}
+      <div className="max-w-7xl mx-auto px-4 md:px-6">
+        {renderContent()}
+      </div>
     </div>
   );
 }

@@ -74,10 +74,10 @@ so that I can browse drills comfortably on mobile, tablet, or desktop.
   - [x] 6.3: Test responsive classes are applied using mocked window width (advanced, optional for JSDOM).
 
 - [x] **Task 7: Visual Verification**
-  - [ ] 7.1: Run `npm run dev` and verify responsive behavior in browser dev tools.
-  - [ ] 7.2: Check grid column counts on mobile, tablet, desktop.
-  - [ ] 7.3: Verify gap spacing and centering.
-  - [ ] 7.4: Ensure no horizontal scrolling or content overflow.
+  - [x] 7.1: Run `npm run dev` and verify responsive behavior in browser dev tools.
+  - [x] 7.2: Check grid column counts on mobile, tablet, desktop.
+  - [x] 7.3: Verify gap spacing and centering.
+  - [x] 7.4: Ensure no horizontal scrolling or content overflow.
 
 ## Dev Notes
 

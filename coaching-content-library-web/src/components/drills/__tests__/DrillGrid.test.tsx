@@ -1,22 +1,30 @@
 import { render, screen } from '@testing-library/react';
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import { DrillGrid } from '../DrillGrid';
-import { ContentItem } from '@/lib/types';
 
-// Mock the DrillCard component to isolate the DrillGrid tests
-vi.mock('@/components/drills/DrillCard', () => ({
-  DrillCard: ({ drill }: { drill: ContentItem }) => <div data-testid="drill-card">{drill.title}</div>,
-}));
-
-const mockDrills: ContentItem[] = [
-  { id: 1, title: 'Drill 1' } as ContentItem,
-  { id: 2, title: 'Drill 2' } as ContentItem,
+const mockChildren = [
+  <div key="1" data-testid="mock-child">Child 1</div>,
+  <div key="2" data-testid="mock-child">Child 2</div>,
 ];
 
 describe('DrillGrid', () => {
-  it('renders the correct number of drill cards', () => {
-    render(<DrillGrid drills={mockDrills} />);
-    const drillCards = screen.getAllByTestId('drill-card');
-    expect(drillCards).toHaveLength(mockDrills.length);
+  it('renders its children correctly', () => {
+    render(<DrillGrid>{mockChildren}</DrillGrid>);
+    const renderedChildren = screen.getAllByTestId('mock-child');
+    expect(renderedChildren).toHaveLength(mockChildren.length);
+    expect(screen.getByText('Child 1')).toBeInTheDocument();
+    expect(screen.getByText('Child 2')).toBeInTheDocument();
+  });
+
+  it('applies all responsive grid classes', () => {
+    render(<DrillGrid>{mockChildren}</DrillGrid>);
+    const gridElement = screen.getByTestId('drill-grid');
+    const classes = gridElement.className;
+
+    expect(classes).toContain('grid');
+    expect(classes).toContain('grid-cols-1');
+    expect(classes).toContain('md:grid-cols-2');
+    expect(classes).toContain('lg:grid-cols-3');
+    expect(classes).toContain('xl:grid-cols-4');
   });
 });
