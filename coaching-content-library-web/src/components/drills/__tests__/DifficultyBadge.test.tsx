@@ -27,4 +27,10 @@ describe('DifficultyBadge', () => {
     const { container } = render(<DifficultyBadge difficulty={null} />);
     expect(container.firstChild).toBeNull();
   });
+
+  it('returns null for invalid difficulty values', () => {
+    // @ts-expect-error - Testing runtime behavior with invalid value
+    const { container } = render(<DifficultyBadge difficulty="expert" />);
+    expect(container.firstChild).toBeNull();
+  });
 });

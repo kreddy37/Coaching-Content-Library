@@ -15,6 +15,11 @@ class ContentType(str, Enum):
     POST = "Post"
     ARTICLE = "Article"
     IMAGE = "Image"
+
+class Difficulty(str, Enum):
+    BEGINNER = "Beginner"
+    INTERMEDIATE = "Intermediate"
+    ADVANCED = "Advanced"
     
 class ContentItem(BaseModel):
     """
@@ -56,6 +61,6 @@ class ContentItem(BaseModel):
     # Drill-specific metadata (Phase 2)
     drill_tags: list[str] = Field(default_factory=list)  # e.g., ["butterfly", "lateral-movement", "warmup"]
     drill_description: Optional[str] = None  # Custom drill description (separate from auto-fetched description)
-    difficulty: Optional[str] = None   # beginner, intermediate, advanced
+    difficulty: Optional[Difficulty] = None   # Beginner, Intermediate, Advanced (PascalCase)
     equipment: Optional[str] = None    # e.g., "pucks, cones"
     age_group: Optional[str] = None    # e.g., "bantam", "12-14"

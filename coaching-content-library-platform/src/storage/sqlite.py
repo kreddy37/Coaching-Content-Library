@@ -6,7 +6,7 @@ from pathlib import Path
 from typing import Optional
 from datetime import datetime, timezone
 
-from ..models.content import ContentItem, ContentSource, ContentType
+from ..models.content import ContentItem, ContentSource, ContentType, Difficulty
 from .repository import ContentRepository
 
 logger = logging.getLogger(__name__)
@@ -129,7 +129,7 @@ class SQLiteRepository(ContentRepository):
                 item.collection_id,
                 json.dumps(item.drill_tags),
                 item.drill_description,
-                item.difficulty,
+                item.difficulty.value if item.difficulty else None,
                 item.equipment,
                 item.age_group,
             ))
@@ -294,8 +294,9 @@ class SQLiteRepository(ContentRepository):
                 params.append(criteria["content_type"].value)
 
             if "difficulty" in criteria:
-                sql += " AND difficulty = ?"
-                params.append(criteria["difficulty"])
+                # Case-insensitive comparison to handle legacy lowercase data
+                sql += " AND LOWER(difficulty) = LOWER(?)"
+                params.append(criteria["difficulty"].value if hasattr(criteria["difficulty"], 'value') else criteria["difficulty"])
 
             if "equipment" in criteria:
                 sql += " AND equipment LIKE ?"
@@ -357,8 +358,18 @@ class SQLiteRepository(ContentRepository):
                 logger.warning(f"Failed to parse drill_tags for {row['id']}")
 
         drill_description = row['drill_description'] if 'drill_description' in row_keys else None
-        difficulty = row['difficulty'] if 'difficulty' in row_keys else None
-        print(f"Difficulty for {row['id']}: {difficulty}")
+
+        # Normalize difficulty to PascalCase enum value (handles legacy lowercase data)
+        difficulty_raw = row['difficulty'] if 'difficulty' in row_keys else None
+        difficulty = None
+        if difficulty_raw:
+            difficulty_map = {
+                'beginner': Difficulty.BEGINNER,
+                'intermediate': Difficulty.INTERMEDIATE,
+                'advanced': Difficulty.ADVANCED,
+            }
+            difficulty = difficulty_map.get(difficulty_raw.lower())
+
         equipment = row['equipment'] if 'equipment' in row_keys else None
         age_group = row['age_group'] if 'age_group' in row_keys else None
 
