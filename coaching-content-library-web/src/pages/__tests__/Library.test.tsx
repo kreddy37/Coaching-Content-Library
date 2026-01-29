@@ -186,9 +186,27 @@ describe('Library Page', () => {
     render(<Library />, { wrapper: createWrapper() });
 
     await waitFor(() => {
-      expect(screen.getByText('No drills yet')).toBeInTheDocument();
+      expect(screen.getByText('No Drills Yet')).toBeInTheDocument();
       expect(screen.getByText(/Your drill library is empty/i)).toBeInTheDocument();
-      expect(screen.getByRole('button', { name: /Add Your First Drill/i })).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: /Add Drill/i })).toBeInTheDocument();
+    });
+  });
+
+  it('renders EmptyState component with correct accessibility attributes when empty', async () => {
+    (useContentList as Mock).mockReturnValue({
+      data: { items: [], total: 0 },
+      isLoading: false,
+      isError: false,
+      error: null,
+      refetch: vi.fn(),
+    });
+
+    render(<Library />, { wrapper: createWrapper() });
+
+    await waitFor(() => {
+      const emptyState = screen.getByRole('status');
+      expect(emptyState).toBeInTheDocument();
+      expect(emptyState).toHaveAttribute('aria-live', 'polite');
     });
   });
 });

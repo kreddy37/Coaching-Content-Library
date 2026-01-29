@@ -5,6 +5,8 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { DrillCard } from '@/components/drills/DrillCard';
 import type { ContentItem } from '@/lib/types';
 import { DrillGrid } from '@/components/drills/DrillGrid';
+import { EmptyState } from '@/components/ui/EmptyState';
+import { FolderOpen } from 'lucide-react';
 
 /**
  * Error State Component Props
@@ -35,28 +37,6 @@ function ErrorState({ onRetry }: ErrorStateProps) {
   );
 }
 
-/**
- * Empty State Component
- * Displays when no drills exist in database
- */
-function EmptyState() {
-  return (
-    <div className="flex flex-col items-center justify-center py-16">
-      <div className="text-center max-w-md">
-        <h3 className="text-2xl font-bold text-hockey-blue mb-3">
-          No drills yet
-        </h3>
-        <p className="text-rink-gray mb-6">
-          Your drill library is empty. Start by adding drills via the Discord
-          bot or web interface.
-        </p>
-        <Button className="bg-ice-blue hover:bg-ice-blue/90 text-white">
-          Add Your First Drill
-        </Button>
-      </div>
-    </div>
-  );
-}
 
 // Placeholder onClick handler - Story 3.1 will implement DrillDetail sheet
 const handleDrillClick = (drill: ContentItem) => {
@@ -96,7 +76,14 @@ export function Library() {
 
     if (data) {
       if (data.items.length === 0) {
-        return <EmptyState />;
+        return (
+          <EmptyState
+            title="No Drills Yet"
+            message="Your drill library is empty. Start by capturing drills via Discord bot or web interface."
+            actionLabel="Add Drill"
+            icon={<FolderOpen className="w-20 h-20 text-ice-blue" />}
+          />
+        );
       }
       return (
         <DrillGrid>
