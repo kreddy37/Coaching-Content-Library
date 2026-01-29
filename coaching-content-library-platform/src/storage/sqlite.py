@@ -358,6 +358,7 @@ class SQLiteRepository(ContentRepository):
 
         drill_description = row['drill_description'] if 'drill_description' in row_keys else None
         difficulty = row['difficulty'] if 'difficulty' in row_keys else None
+        print(f"Difficulty for {row['id']}: {difficulty}")
         equipment = row['equipment'] if 'equipment' in row_keys else None
         age_group = row['age_group'] if 'age_group' in row_keys else None
 

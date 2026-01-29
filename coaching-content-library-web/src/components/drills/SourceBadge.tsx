@@ -1,31 +1,50 @@
-import type { ContentItem } from '@/lib/types';
-import { Badge } from '@/components/ui/badge';
+import type { ContentSource } from '@/lib/types';
 import { cn } from '@/lib/utils';
+import { Video, MessageSquare, Instagram, Music } from 'lucide-react';
 
 export interface SourceBadgeProps {
-  source: ContentItem['source'];
+  source: ContentSource;
 }
 
 export function SourceBadge({ source }: SourceBadgeProps) {
-  // Temporary colors - Story 2.4 will enhance with brand colors and icons
-  const getSourceColor = () => {
-    switch (source) {
-      case 'YouTube':
-        return 'bg-red-600 text-white hover:bg-red-700';
-      case 'Reddit':
-        return 'bg-orange-500 text-white hover:bg-orange-600';
-      case 'Instagram':
-        return 'bg-pink-500 text-white hover:bg-pink-600';
-      case 'TikTok':
-        return 'bg-black text-white hover:bg-gray-900';
-      default:
-        return 'bg-gray-500 text-white';
-    }
+  const badgeConfig = {
+    YouTube: {
+      icon: <Video data-testid="youtube-icon" className="w-3 h-3" />,
+      label: 'YouTube',
+      className: 'bg-red-600 text-white',
+    },
+    Reddit: {
+      icon: <MessageSquare data-testid="reddit-icon" className="w-3 h-3" />,
+      label: 'Reddit',
+      className: 'bg-orange-500 text-white',
+    },
+    Instagram: {
+      icon: <Instagram data-testid="instagram-icon" className="w-3 h-3" />,
+      label: 'Instagram',
+      className: 'bg-pink-500 text-white',
+    },
+    TikTok: {
+      icon: <Music data-testid="tiktok-icon" className="w-3 h-3" />,
+      label: 'TikTok',
+      className: 'bg-black text-white',
+    },
   };
 
+  const config = badgeConfig[source];
+
+  if (!config) {
+    return null;
+  }
+
   return (
-    <Badge className={cn('text-xs', getSourceColor())}>
-      {source}
-    </Badge>
+    <span
+      className={cn(
+        'rounded-md px-2 py-1 text-xs flex items-center gap-1',
+        config.className
+      )}
+    >
+      {config.icon}
+      {config.label}
+    </span>
   );
 }
